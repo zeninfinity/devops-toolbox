@@ -1,0 +1,6 @@
+$domain="https://s3-us-west-2.amazonaws.com/"
+$bucket="bucket-qa"
+$envfile="/opt/company/etc/env.props"
+$basedir="/opt/company/utils/s3imggal/"
+$folder="share/"
+$ft="png"

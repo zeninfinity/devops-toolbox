@@ -1,0 +1,28 @@
+<%-
+  if @ec2_tag_environment
+    if (ec2_tag_environment == 'ci')
+      DOMAIN="https://s3-us-west-2.amazonaws.com/"
+      BUCKET="bucket-ci"
+    elsif (ec2_tag_environment == 'qa')
+      DOMAIN="https://s3-us-west-2.amazonaws.com/"
+      BUCKET="bucket-qa"
+    elsif (ec2_tag_environment == 'tst')
+      DOMAIN="https://s3-us-west-2.amazonaws.com/"
+      BUCKET="bucket-tst"
+    elsif (ec2_tag_environment == 'stg')
+      DOMAIN="https://s3.amazonaws.com/"
+      BUCKET="bucket-getdoc-test"
+    elsif (ec2_tag_environment == 'prod')
+      DOMAIN="https://s3.amazonaws.com/"
+      BUCKET="bucket-getdoc-test"
+    end
+  end
+-%>
+   
+
+$domain=<%= DOMAIN %>
+$bucket=<%= BUCKET %>
+$envfile="/opt/company/etc/env.props"
+$basedir="/opt/company/utils/s3imggal/"
+$folder="share/"
+$ft="png"
