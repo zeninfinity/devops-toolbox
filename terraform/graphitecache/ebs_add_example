@@ -1,0 +1,13 @@
+resource "aws_ebs_volume" "graphitecache3" {
+  availability_zone = "us-west-2"
+  size = 100
+  tags {
+    Name = "GraphiteStorage"
+  }
+}
+
+resource "aws_volume_attachment" "graphitecache3" {
+  device_name = "/dev/xvdf"
+  volume_id = "${aws_ebs_volume.graphitecache.id}"
+  instance_id = "${aws_instance.graphitecache3.id}"
+}
