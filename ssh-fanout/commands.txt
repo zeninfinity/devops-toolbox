@@ -1,0 +1,4 @@
+sudo mv threatstack.repo /etc/yum.repos.d/threatstack.repo
+sudo chown root:root /etc/yum.repos.d/threatstack.repo
+sudo yum -y install nginx
+sudo yum -y install mysql

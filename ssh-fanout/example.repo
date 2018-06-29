@@ -1,0 +1,5 @@
+[threatstack]
+name=Threat Stack Package Repository
+baseurl=https://pkg.threatstack.com/Amazon
+enabled=1
+gpgcheck=1
