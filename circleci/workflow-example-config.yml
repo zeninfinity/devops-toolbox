@@ -1,0 +1,101 @@
+version: 2
+jobs: 
+  build:
+    docker:
+       - image: circleci/ruby:2.4.3-node-browsers
+         environment:
+           RAILS_ENV: test
+           PGUSER: postgres
+       - image: circleci/postgres:10.3-alpine
+         environment:
+           POSTGRES_USER: postgres
+           POSTGRES_DB: novo_test
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          # Fallback to using the latest cache if no exact match is found.
+          - v1-dependencies-
+
+      - run:
+          name: 'Install Dependencies'
+          command: |
+            sudo sed -i '/jessie-backports/d' /etc/apt/sources.list
+            sudo sed -i '/jessie-updates/d' /etc/apt/sources.list
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            yarn install
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: 'Wait For Database Server'
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: 'Setup Database Schema'
+          command: bundle exec rake db:structure:load
+
+      - run:
+          name: 'Run Tests'
+          command: "CI=1 bundle exec rails test 'test/**/*_test.rb'"
+
+      - store_artifacts:
+          path: ./test/reports
+
+      - store_artifacts:
+          path: ./tmp/screenshots
+
+      - store_test_results:
+          path: ./test/reports
+
+  deploy-stage:
+    docker:
+      - image: circleci/ruby:2.4.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Deploy if tests pass and branch is stage
+          command:  |
+            if [ "$CIRCLE_NODE_INDEX" == 0 ]; then
+              curl -X POST -H 'Content-type: application/json' \
+              --data '{"text":"Preparing to deploy branch *'$CIRCLE_BRANCH'* to stage"}' \
+              https://hooks.slack.com/services/REMOVED
+            fi
+            sudo cat /etc/apt/sources.list
+            sudo sed -i '/jessie-backports/d' /etc/apt/sources.list
+            sudo sed -i '/jessie-updates/d' /etc/apt/sources.list
+            sudo apt-get update
+            sudo apt-get install awscli python-pip python-dev build-essential
+            mkdir ~/.aws/
+            printf "[default] \nregion = us-east-1" >> ~/.aws/config
+            printf "[default] \naws_access_key_id = $AWS_ACCESS_KEY_ID\naws_secret_access_key = $AWS_SECRET_ACCESS_KEY\n[eb-cli] \naws_access_key_id = $AWS_ACCESS_KEY_ID\naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+            ls -l /usr/bin/e*
+            sudo pip install awsebcli==3.14.11
+            echo `which eb`
+            (cd ~/repo/ && ~/repo/eb deploy)
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"Deploy of branch *'$CIRCLE_BRANCH'* to stage complete."}' \
+            https://hooks.slack.com/services/REMOVED
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: stage
+      - deploy-stage
+          filters:
+            branches:
+              only: stage
