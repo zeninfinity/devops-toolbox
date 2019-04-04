@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "check-process-sensu-server": {
+    "handlers": ["mailer"],
+    "command": "/opt/sensu/embedded/bin/ruby /usr/local/rvm/gems/ruby-2.1.10/gems/sensu-plugins-process-checks-3.2.0/bin/check-process.rb -p sensu-server",
+    "interval": 60,
+    "occurrences": 2,
+    "subscribers": [ "core" ]
+    }
+  }
+}

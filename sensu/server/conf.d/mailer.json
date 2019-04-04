@@ -1,0 +1,10 @@
+{
+  "mailer": {
+    "admin_gui": "http://yoursensuserverip:8080/",
+    "mail_from": "fromuser@domain.com",
+    "mail_to": "touser@domain.com",
+    "smtp_address": "localhost",
+    "smtp_port": "25",
+    "smtp_domain": "localhost"
+  }
+}

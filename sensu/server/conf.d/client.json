@@ -1,0 +1,8 @@
+{
+  "client": {
+    "name": "core",
+    "address": "localhost",
+    "environment" : "core",
+    "subscriptions": [ "ALL" , "core"]
+  }
+}

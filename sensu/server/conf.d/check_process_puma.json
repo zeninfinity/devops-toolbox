@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "check-process-puma": {
+    "handlers": ["mailer"],
+    "command": "/opt/sensu/embedded/bin/check-process.rb -p puma",
+    "interval": 60,
+    "occurrences": 2,
+    "subscribers": [ "stage" , "prod" ]
+    }
+  }
+}

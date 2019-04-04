@@ -1,0 +1,15 @@
+{
+   "sensu": [
+     {
+       "name": "sensu-server",
+       "host": "127.0.0.1",
+       "port": 4567
+     }
+   ],
+   "uchiwa": {
+     "host": "0.0.0.0",
+     "port": 3001,
+     "user": "admin",
+     "pass": "REMOVED"
+   }
+ }
