@@ -1,0 +1,9 @@
+{
+  "handlers": {
+    "slack": {
+      "type": "pipe",
+      "command": "/opt/sensu/embedded/bin/handler-slack.rb",
+      "filters": ["occurrences"]
+    }
+  }
+}

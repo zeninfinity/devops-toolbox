@@ -1,0 +1,10 @@
+{
+  "slack": {
+    "webhook_url": "https://hooks.slack.com/services/blah/blah/blah",
+    "dashboard": "http://exmaple.com:3001/#/events",
+    "channel": "#eng-notify",
+    "bot_name": "Sensu Server",
+    "icon_url": "https://raw.githubusercontent.com/sensu/sensu-logo/master/sensu1_flat%20white%20bg_png.png",
+    "icon_emoji": ":sensu:"
+  }
+}
