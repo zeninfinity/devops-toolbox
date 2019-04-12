@@ -3,5 +3,7 @@
     "webhook_url": "https://hooks.slack.com/services/blah/blah/blah",
     "dashboard": "http://exmaple.com:3001/#/events",
     "channel": "#eng-notify",
+    "message_template": "/etc/sensu/conf.d/slack-template.eruby",
+    "payload_template": "/etc/sensu/conf.d/payload.erb"
   }
 }

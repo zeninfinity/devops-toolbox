@@ -1,0 +1,41 @@
+{
+  "attachments": [
+    {
+      "title": "Uchiwa Dashboard",
+      "title_link": "<insert uchiwa link here>",
+      "color": "<%= color %>",
+      "fields": [
+          {
+            "title": "Status",
+            "value": "<%= translate_status %>",
+            "short": false
+          },
+          {
+            "title": "Client Name",
+            "value": "<%= @event['client']['name'] %>",
+            "short": true
+          },
+          {
+            "title": "IP address",
+            "value": "<%= @event['client']['address'] %>",
+            "short": true
+          },
+          {
+             "title": "Check Name",
+             "value": "<%= @event['check']['name'] %>",
+             "short": true
+          },
+          {
+             "title": "Action",
+             "value": "<%= @event['action'] %>",
+             "short": true
+          },
+          {
+             "title": "Output",
+             "value": "<%= @event['check']['output'] %>",
+             "short": false
+          }
+      ]
+    }
+  ]
+}

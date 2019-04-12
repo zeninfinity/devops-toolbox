@@ -1,0 +1,8 @@
+<%=
+[
+  @event['client']['name'] + '/' + @event['check']['name'],
+  @event["check"]["output"].gsub(\'"\', \'\\"\'),
+  @event["client"]["address"],
+  @event["client"]["subscriptions"].join(",")
+].join(" : ")
+%>
