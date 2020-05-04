@@ -22,3 +22,10 @@ resource "aws_instance" "example" {
 ```
 
 Then the new SG gets created, swapped out on the ENI for the EC2 instance and then the old SG can be deleted.
+
+## Replace
+
+To replace an _ with a -
+```
+   env = "${replace(var.tfenv, "/_/","-")}"
+```
