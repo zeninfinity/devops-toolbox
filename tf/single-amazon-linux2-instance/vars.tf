@@ -7,3 +7,6 @@ variable "env" {}
 variable "availability_zones" {}
 variable "ami" {}
 variable "ami_owner" {}
+variable "instance_name" {}
+variable "instance_size" {}
+variable "ssh_key_name" {}
