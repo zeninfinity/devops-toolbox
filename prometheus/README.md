@@ -1,6 +1,6 @@
-# Omni
+# Prometheus (Titan God of Fire)
 
-## Prometheus
+## Documents
 
 - AWS Prometheus - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/prometheus_workspace
 - Installation - https://devopscube.com/install-configure-prometheus-linux/
