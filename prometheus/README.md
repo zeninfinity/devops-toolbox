@@ -10,6 +10,6 @@
 We begin by creating an AMI that will spin up the prometheus server ready to go.  
 
 ## Terraform
-Now that we have an AMI, we build the server with terraform.
+Now that we have an AMI, we build an Amazon Linux 2 instance using terraform.
 
 
